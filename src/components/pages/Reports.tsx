@@ -65,12 +65,12 @@ const Reports = ({ userRole }: ReportsProps) => {
       {/* Header */}
       <div className="space-y-2">
         <h1 className="text-3xl font-bold text-foreground">
-          {userRole === 'admin' ? 'Relatórios Administrativos' : 'Meus Relatórios'}
+          {userRole === 'admin' ? 'Relatórios Gerenciais' : 'Meus Relatórios'}
         </h1>
         <p className="text-muted-foreground">
           {userRole === 'admin' 
-            ? 'Gerencie e visualize relatórios da equipe'
-            : 'Acesse seus relatórios mensais de ponto'
+            ? 'Relatórios de toda a equipe e controles administrativos'
+            : 'Seus espelhos de ponto e relatórios pessoais'
           }
         </p>
       </div>

@@ -76,9 +76,9 @@ const Records = () => {
     <div className="p-6 space-y-6">
       {/* Header */}
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold text-foreground">Meus Registros</h1>
+        <h1 className="text-3xl font-bold text-foreground">Registros de Ponto</h1>
         <p className="text-muted-foreground">
-          Visualize e gerencie seus registros de ponto
+          Visualize e gerencie os registros de ponto
         </p>
       </div>
 
