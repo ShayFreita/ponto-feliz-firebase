@@ -10,10 +10,10 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ activeTab, onTabChange, userRole, onLogout }: SidebarProps) => {
-  const menuItems = [
+const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: Home, roles: ['admin', 'employee'] },
-    { id: 'punch', label: 'Registrar Ponto', icon: Clock, roles: ['admin', 'employee'] },
-    { id: 'records', label: 'Meus Registros', icon: Calendar, roles: ['admin', 'employee'] },
+    { id: 'punch', label: 'Registrar Ponto', icon: Clock, roles: ['employee'] },
+    { id: 'records', label: userRole === 'admin' ? 'Registros Gerais' : 'Meus Registros', icon: Calendar, roles: ['admin', 'employee'] },
     { id: 'reports', label: 'Relatórios', icon: FileText, roles: ['admin', 'employee'] },
     { id: 'employees', label: 'Funcionários', icon: Users, roles: ['admin'] },
     { id: 'settings', label: 'Configurações', icon: Settings, roles: ['admin'] },
