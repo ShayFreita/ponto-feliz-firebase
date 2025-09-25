@@ -4,10 +4,19 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useToast } from '@/hooks/use-toast';
 
 const Records = () => {
+  const { toast } = useToast();
   const [selectedMonth, setSelectedMonth] = useState('2024-01');
   const [searchTerm, setSearchTerm] = useState('');
+
+  const handleExport = () => {
+    toast({
+      title: 'Exportando registros',
+      description: 'Seus registros estão sendo preparados para download.',
+    });
+  };
 
   const mockRecords = [
     {
@@ -149,7 +158,7 @@ const Records = () => {
               </SelectContent>
             </Select>
 
-            <Button className="punch-button-primary">
+            <Button className="punch-button-primary" onClick={handleExport}>
               <Download className="w-4 h-4 mr-2" />
               Exportar
             </Button>

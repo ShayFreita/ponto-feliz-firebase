@@ -1,12 +1,14 @@
 import { FileText, Download, Eye, Mail } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 interface ReportsProps {
   userRole: 'admin' | 'employee';
 }
 
 const Reports = ({ userRole }: ReportsProps) => {
+  const { toast } = useToast();
   const employeeReports = [
     {
       month: 'Janeiro 2024',
@@ -59,6 +61,35 @@ const Reports = ({ userRole }: ReportsProps) => {
   ];
 
   const reports = userRole === 'admin' ? adminReports : employeeReports;
+
+  const handleGenerateReport = (type: string) => {
+    toast({
+      title: 'Gerando relatório...',
+      description: `${type} está sendo processado. Você será notificado quando estiver pronto.`,
+    });
+  };
+
+  const handleDownload = (reportName: string) => {
+    toast({
+      title: 'Download iniciado',
+      description: `Fazendo download do ${reportName}`,
+    });
+  };
+
+  const handleSendEmail = (reportName: string, employeeEmail?: string) => {
+    const recipient = employeeEmail || 'funcionário selecionado';
+    toast({
+      title: 'Email enviado',
+      description: `${reportName} foi enviado para ${recipient}`,
+    });
+  };
+
+  const handleViewReport = (reportName: string) => {
+    toast({
+      title: 'Abrindo relatório',
+      description: `Visualizando ${reportName}`,
+    });
+  };
 
   return (
     <div className="p-6 space-y-6">
@@ -126,15 +157,24 @@ const Reports = ({ userRole }: ReportsProps) => {
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap gap-4">
-              <Button className="punch-button-primary">
+              <Button 
+                className="punch-button-primary"
+                onClick={() => handleGenerateReport('Relatório Individual')}
+              >
                 <FileText className="w-4 h-4 mr-2" />
                 Relatório Individual
               </Button>
-              <Button className="punch-button-success">
+              <Button 
+                className="punch-button-success"
+                onClick={() => handleGenerateReport('Relatório Consolidado')}
+              >
                 <FileText className="w-4 h-4 mr-2" />
                 Relatório Consolidado
               </Button>
-              <Button className="punch-button hover:bg-secondary text-secondary-foreground">
+              <Button 
+                className="punch-button hover:bg-secondary text-secondary-foreground"
+                onClick={() => handleGenerateReport('Envio Automático')}
+              >
                 <Mail className="w-4 h-4 mr-2" />
                 Envio Automático
               </Button>
@@ -186,16 +226,28 @@ const Reports = ({ userRole }: ReportsProps) => {
                 </div>
                 
                 <div className="flex items-center gap-2">
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => handleViewReport(userRole === 'admin' ? report.title : `Relatório - ${report.month}`)}
+                  >
                     <Eye className="w-4 h-4 mr-1" />
                     Visualizar
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => handleDownload(userRole === 'admin' ? report.title : `Relatório - ${report.month}`)}
+                  >
                     <Download className="w-4 h-4 mr-1" />
                     Download
                   </Button>
                   {userRole === 'admin' && (
-                    <Button variant="outline" size="sm">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => handleSendEmail(report.title, 'funcionario@empresa.com')}
+                    >
                       <Mail className="w-4 h-4 mr-1" />
                       Reenviar
                     </Button>

@@ -4,9 +4,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/hooks/use-toast';
 
 const Employees = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const { toast } = useToast();
 
   const mockEmployees = [
     {
@@ -75,6 +77,33 @@ const Employees = () => {
     { name: 'Marketing', count: 4, avgHours: '170h' },
     { name: 'Financeiro', count: 3, avgHours: '169h' }
   ];
+
+  const handleAddEmployee = () => {
+    toast({
+      title: 'Novo Funcionário',
+      description: 'Funcionalidade será implementada com o backend conectado.',
+    });
+  };
+
+  const handleFilter = () => {
+    toast({
+      title: 'Filtros',
+      description: 'Abrindo opções de filtro avançado.',
+    });
+  };
+
+  const handleEmployeeAction = (employeeName: string, action: string) => {
+    toast({
+      title: `Ação: ${action}`,
+      description: `${action} para ${employeeName}`,
+    });
+  };
+
+  const filteredEmployees = mockEmployees.filter(employee =>
+    employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    employee.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    employee.department.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="p-6 space-y-6">
@@ -175,11 +204,11 @@ const Employees = () => {
             </div>
             
             <div className="flex gap-2">
-              <Button variant="outline">
+              <Button variant="outline" onClick={handleFilter}>
                 <Filter className="w-4 h-4 mr-2" />
                 Filtros
               </Button>
-              <Button className="punch-button-primary">
+              <Button className="punch-button-primary" onClick={handleAddEmployee}>
                 <Plus className="w-4 h-4 mr-2" />
                 Novo Funcionário
               </Button>
@@ -198,7 +227,7 @@ const Employees = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {mockEmployees.map((employee) => (
+            {filteredEmployees.map((employee) => (
               <div key={employee.id} className="flex items-center justify-between p-4 rounded-lg border border-card-border hover:bg-muted/50 transition-colors">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
@@ -235,7 +264,11 @@ const Employees = () => {
                     {employee.status}
                   </Badge>
                   
-                  <Button variant="ghost" size="sm">
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => handleEmployeeAction(employee.name, 'Editar funcionário')}
+                  >
                     <MoreHorizontal className="w-4 h-4" />
                   </Button>
                 </div>
@@ -243,7 +276,7 @@ const Employees = () => {
             ))}
           </div>
 
-          {mockEmployees.length === 0 && (
+          {filteredEmployees.length === 0 && (
             <div className="text-center py-8">
               <Users className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
               <p className="text-muted-foreground">Nenhum funcionário encontrado</p>

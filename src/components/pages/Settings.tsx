@@ -5,8 +5,45 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useToast } from '@/hooks/use-toast';
 
 const Settings = () => {
+  const { toast } = useToast();
+
+  const handleSaveCompany = () => {
+    toast({
+      title: 'Configurações da empresa salvas',
+      description: 'As informações da empresa foram atualizadas com sucesso.',
+    });
+  };
+
+  const handleSaveHours = () => {
+    toast({
+      title: 'Horários salvos',
+      description: 'Configurações de horário de trabalho foram atualizadas.',
+    });
+  };
+
+  const handleTestEmail = () => {
+    toast({
+      title: 'Testando configurações de email...',
+      description: 'Um email de teste será enviado em breve.',
+    });
+  };
+
+  const handleSaveSettings = () => {
+    toast({
+      title: 'Configurações salvas',
+      description: 'Todas as configurações foram atualizadas com sucesso.',
+    });
+  };
+
+  const handleExportSettings = () => {
+    toast({
+      title: 'Exportando configurações',
+      description: 'O arquivo de configurações será baixado em breve.',
+    });
+  };
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
@@ -45,7 +82,7 @@ const Settings = () => {
               <Input id="company-address" placeholder="Rua Exemplo, 123" />
             </div>
             
-            <Button className="w-full punch-button-primary">
+            <Button className="w-full punch-button-primary" onClick={handleSaveCompany}>
               Salvar Alterações
             </Button>
           </CardContent>
@@ -107,7 +144,7 @@ const Settings = () => {
               </div>
             </div>
             
-            <Button className="w-full punch-button-primary">
+            <Button className="w-full punch-button-primary" onClick={handleSaveHours}>
               Salvar Horários
             </Button>
           </CardContent>
@@ -225,7 +262,7 @@ const Settings = () => {
               <Switch defaultChecked />
             </div>
             
-            <Button className="w-full punch-button-primary">
+            <Button className="w-full punch-button-primary" onClick={handleTestEmail}>
               Testar e Salvar
             </Button>
           </CardContent>
@@ -305,10 +342,10 @@ const Settings = () => {
           </div>
           
           <div className="mt-6 pt-6 border-t border-border">
-            <Button className="punch-button-primary mr-4">
+            <Button className="punch-button-primary mr-4" onClick={handleSaveSettings}>
               Salvar Configurações
             </Button>
-            <Button variant="outline">
+            <Button variant="outline" onClick={handleExportSettings}>
               Exportar Configurações
             </Button>
           </div>
