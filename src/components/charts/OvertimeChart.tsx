@@ -43,7 +43,7 @@ const OvertimeChart = ({ data, title, description }: OvertimeChartProps) => {
               }}
               formatter={(value, name) => [
                 `${value}h`,
-                name === 'horasExtras' ? 'Horas Extras Realizadas' : 'Saldo do Banco de Horas'
+                name === 'horasExtras' ? 'Horas Extras Trabalhadas no Período' : 'Saldo Acumulado no Banco de Horas'
               ]}
               labelFormatter={(label) => `Funcionário: ${label}`}
             />
