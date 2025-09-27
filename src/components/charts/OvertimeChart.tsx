@@ -43,20 +43,20 @@ const OvertimeChart = ({ data, title, description }: OvertimeChartProps) => {
               }}
               formatter={(value, name) => [
                 `${value}h`,
-                name === 'horasExtras' ? 'Horas Extras Trabalhadas no Período' : 'Saldo Acumulado no Banco de Horas'
+                name === 'horasExtras' ? 'Horas Extras do Mês' : 'Saldo em Banco'
               ]}
               labelFormatter={(label) => `Funcionário: ${label}`}
             />
             <Bar 
               dataKey="horasExtras" 
               fill="hsl(var(--warning))" 
-              name="Horas Extras"
+              name="Horas Extras do Mês"
               radius={[4, 4, 0, 0]}
             />
             <Bar 
               dataKey="bancoHoras" 
               fill="hsl(var(--primary))" 
-              name="Banco de Horas"
+              name="Saldo em Banco"
               radius={[4, 4, 0, 0]}
             />
           </BarChart>
