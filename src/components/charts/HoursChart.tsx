@@ -50,8 +50,9 @@ const HoursChart = ({ data, title, description }: HoursChartProps) => {
               }}
               formatter={(value, name) => [
                 `${value}h`,
-                name === 'horasTrabalhadas' ? 'Horas Trabalhadas' : 'Horas Esperadas'
+                name === 'horasTrabalhadas' ? 'Horas Efetivamente Trabalhadas' : 'Horas Previstas para o Dia'
               ]}
+              labelFormatter={(label) => `Dia: ${label}`}
             />
             <Area 
               type="monotone" 
